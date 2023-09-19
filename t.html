@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token写入LocalStorage</title>
+</head>
+<body>
+    <script>
+        // 发送HTTP请求获取Token
+        fetch('http://10.82.13.87:12004/auth/login')
+               .then(response => response.json()) // 解析JSON响应
+                       .then(data => {
+                           // 提取Token并写入LocalStorage
+                           const token = data.msg.token;
+                           localStorage.setItem('token', token);
+                           console.log('Token已写入LocalStorage:', token);
+           
+                           // 执行重定向到 10.82.27.175
+                           window.location.href = 'http://10.82.27.175';
+                       })
+                       .catch(error => {
+                           console.error('获取Token时发生错误:', error);
+                       });
+    </script>
+</body>
+</html>
